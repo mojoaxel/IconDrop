@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{77C8C5E7-4AB3-49FF-B8CD-4EE0B850576A}</ProjectGuid>
+    <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>IconDrop</RootNamespace>
+    <AssemblyName>IconDrop</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>__MACOS__;DEBUG;__UNIFIED__;OSX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CodeSigningKey>Mac Developer</CodeSigningKey>
+    <CreatePackage>false</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>true</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <LinkMode>SdkOnly</LinkMode>
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>__UNIFIED__;OSX</DefineConstants>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>sh scripts/packOSX.sh</command>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Mac" />
+    <Reference Include="SciterSharpOSX">
+      <HintPath>..\..\SciterSharp\SciterSharp\bin\Release\SciterSharpOSX.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+    <None Include="res\index.html" />
+    <None Include="res\key.bin" />
+    <None Include="res\sidebarOSX.html" />
+    <None Include="res\unittest.html" />
+    <None Include="res\unittestSVG.html" />
+    <None Include="res\css\aside.css" />
+    <None Include="res\css\global.css" />
+    <None Include="res\css\home.css" />
+    <None Include="res\css\icn-info.css" />
+    <None Include="res\css\list.css" />
+    <None Include="res\css\style.css" />
+    <None Include="res\css\fontello\IconBundler.exe" />
+    <None Include="res\css\fontello\idrop-font.css" />
+    <None Include="res\css\fontello\idrop-svg.css" />
+    <None Include="res\css\fontello\idrop.ttf" />
+    <None Include="res\css\fontello\sciter.dll" />
+    <None Include="res\css\fonts\Hack-Bold.ttf" />
+    <None Include="res\css\fonts\Hack-BoldItalic.ttf" />
+    <None Include="res\css\fonts\Hack-Italic.ttf" />
+    <None Include="res\css\fonts\Hack-Regular.ttf" />
+    <None Include="res\css\fonts\Hack.css" />
+    <None Include="res\css\fonts\Shumi.css" />
+    <None Include="res\css\fonts\Shumi.otf" />
+    <None Include="res\css\fonts\alphanum20.ttf" />
+    <None Include="res\img\logo.svg" />
+    <None Include="res\img\nyan.gif" />
+    <None Include="res\img\quantum_spinner.gif" />
+    <None Include="res\lib_growl\lib_growl.css" />
+    <None Include="res\lib_growl\lib_growl.tis" />
+    <None Include="res\lib_menu\menu-chrome.css" />
+    <None Include="res\lib_menu\toggler-knob.svg" />
+    <None Include="res\lib_menu\toggler.css" />
+    <None Include="res\lib_menu\toggler2.css" />
+    <None Include="res\lib_menu\unittes.html" />
+    <None Include="res\lib_settings\settings.tis" />
+    <None Include="res\lib_settings\unittest.html" />
+    <None Include="res\tis\UI.tis" />
+    <None Include="res\tis\chamfer.tis" />
+    <None Include="res\tis\dropzone.tis" />
+    <None Include="res\tis\keyboard.tis" />
+    <None Include="res\tis\consts.tis" />
+    <None Include="res\tis\icon_behavior.tis" />
+    <None Include="res\tis\icon_info.tis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArchiveResource.cs" />
+    <Compile Include="Src\App.cs" />
+    <Compile Include="Src\ConstsGlobals.cs" />
+    <Compile Include="Src\ConstsVersion.cs" />
+    <Compile Include="Src\Mono.cs" />
+    <Compile Include="Src\ProgramOSX.cs" />
+    <Compile Include="Src\ProgramWL.cs" />
+    <Compile Include="Src\SimpleBSON.cs" />
+    <Compile Include="Src\Utils.cs" />
+    <Compile Include="Src\Data\Joiner.cs" />
+    <Compile Include="Src\Hosting\DnDOSX.cs" />
+    <Compile Include="Src\Hosting\DnDWindowsFUCK.cs" />
+    <Compile Include="Src\Hosting\Host.cs" />
+    <Compile Include="Src\Hosting\IconsSource.cs" />
+    <Compile Include="Src\Hosting\Window.cs" />
+    <Compile Include="Src\Hosting\WindowSidebar.cs" />
+    <Compile Include="Src\Svg\SvgParser.cs" />
+    <Compile Include="Src\Svg\SvgXML.cs" />
+    <Compile Include="Src\Data\Library.cs" />
+    <Compile Include="Src\Native\SingleInstance.cs" />
+    <Compile Include="Src\Ion\Ion.cs" />
+    <Compile Include="Src\Ion\IonNet.cs" />
+    <Compile Include="Src\Ion\IonOSX.cs" />
+    <Compile Include="Src\Ion\IonWindows.cs" />
+    <Compile Include="Src\Ion\UHWID.cs" />
+    <Compile Include="Src\Ion\UpdateControl.cs" />
+    <Compile Include="Src\Svg\SvgSpriteXML.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="libsciter-osx-64.dylib">
+      <Kind>Dynamic</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drop.png" />
+    <BundleResource Include="Resources\cursor.png" />
+    <BundleResource Include="res\css\fontello\config.json" />
+    <BundleResource Include="res\img\arrow2.png" />
+    <BundleResource Include="res\img\grain.png" />
+    <BundleResource Include="res\img\q1.png" />
+    <BundleResource Include="res\img\q2.png" />
+    <BundleResource Include="res\img\q3.png" />
+    <BundleResource Include="res\img\q4.png" />
+    <BundleResource Include="res\img\subheader_bg.png" />
+    <BundleResource Include="Resources\lib.json" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+</Project>

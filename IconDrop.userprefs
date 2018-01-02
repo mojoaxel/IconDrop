@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{77C8C5E7-4AB3-49FF-B8CD-4EE0B850576A}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="IconDrop/res/index.html">
+    <Files>
+      <File FileName="IconDrop/res/tis/dropzone.tis" Line="1" Column="1" />
+      <File FileName="IconDrop/res/index.html" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x64" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/midiway/Downloads/desk/icondropmain/Joiner/Program.cs" line="26" column="37" />
+      <Breakpoint file="/Users/midiway/Downloads/desk/icondropmain/IconDrop/Src/Ion/Ion.cs" line="49" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.IconDropOSX PreferredExecutionTarget="Test1" />
+  <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>IconDrop/IconDropGTK.csproj</String>
+    <String>IconDrop/IconDropWindows.csproj</String>
+    <String>Joiner/Joiner.csproj</String>
+  </DisabledProjects>
+</Properties>

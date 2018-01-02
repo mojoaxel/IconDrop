@@ -1,0 +1,19 @@
+/.gitBB
+/.gitignoreBB
+/Joiner
+/IconDrop/Src/Ion
+/IconDrop/res/key.bin
+/Midia
+/ReleaseInfo
+/push-bb.bat
+
+# Garbage
+.DS_Store
+**/bin/Debug
+**/bin/Release
+obj/
+packages/
+.vs/
+*.sdf
+*.db
+*.opendb

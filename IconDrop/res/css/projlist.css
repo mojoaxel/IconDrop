@@ -1,0 +1,13 @@
+#projlist
+{
+	style-set: ProjList;
+}
+
+@set ProjList
+{
+	h1
+	{
+		font-size: 31px;
+		font-family: alphanum20;
+	}
+}

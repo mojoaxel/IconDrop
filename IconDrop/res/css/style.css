@@ -1,0 +1,195 @@
+html { background: transparent; }
+
+body
+{
+	margin: 0;
+	flow: vertical;
+}
+
+.dnd-target drop
+{
+	visibility: visible;
+	color: white;
+	flow: horizontal;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+spriter, import, drop
+{
+	display: block;
+	visibility: none;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	padding: 30px;
+	background: rgba(0,0,0, 0.8);
+}
+
+header
+{
+	height: 30px;
+	padding: 8px 13px;
+
+	flow: horizontal;
+	vertical-align: middle;
+	border-spacing: 4px;
+	background: url(../img/grain.png) #0F52BA;
+
+	//box-shadow: 0 0 20px 0 rgba(145, 153, 158, .3);
+}
+header icon { size: 14px; fill: rgba(255, 255, 255, 0.71); margin-left: 12px; cursor: pointer; }
+header icon:hover { fill: white; }
+header icon#back
+{
+	visibility: none;
+	margin: 0;
+	size: 22px;
+}
+header #toolbar { visibility: none; }
+
+#ui-search
+{
+	flow: horizontal;
+	vertical-align: middle;
+	overflow: hidden;
+	
+	min-width: 200px;
+	max-width: 320px;
+
+	size: 1.1*;
+	margin: 0 *;
+	padding: 0;
+	padding-left: 10px;
+
+	background: #F5F8FA;
+	border-radius: 2px;
+
+	background-image: url(path:M363.91 181.955C363.91 81.473 282.44 0 181.955 0 81.474 0 0 81.473 0 181.955s81.474 181.95 181.956 181.95c100.484 0 181.953-81.468 181.953-181.95zm-181.954 136.46c-75.252 0-136.465-61.207-136.465-136.46 0-75.25 61.214-136.464 136.466-136.464 75.25 0 136.468 61.214 136.468 136.466 0 75.252-61.218 136.46-136.468 136.46zM471.882 407.567L360.567 296.243c-16.586 25.795-38.536 47.734-64.33 64.32L407.56 471.89c17.772 17.768 46.587 17.768 64.32 0 17.774-17.74 17.774-46.554.002-64.32z);
+	background-repeat: no-repeat;
+	background-size: 1.1em;
+	background-position-top: 48%;
+	background-position-right: .7em;
+	fill: #ced4d8;
+}
+#ui-search widget
+{
+	height: 1em;
+	width: *;
+	padding: 0;
+	padding-bottom: 2px;
+	background: none;
+	font-size: 14px;
+	border: none;
+}
+#ui-search button
+{
+	visibility: none;
+
+	padding: 0 9px;
+	height: *;
+	width: 18px;
+	background: none;
+	foreground-image: url(path:M469 819q194 0 331-137t138-332-138-331-331-138-331 138-138 331 138 332 331 137z m0-834q151 0 258 107t107 258-107 258-258 107-258-107-107-258 107-258 258-107z m36 365l139-137q12-13 5-29t-24-16q-11 0-19 7l-137 139-138-139q-7-7-18-7-17 0-24 16t5 29l139 137-139 138q-18 17 1 36t36 1l138-138 137 138q18 18 37-1t1-36z);
+	foreground-repeat: no-repeat;
+	foreground-size: 1.3em;
+	foreground-position: center;
+	fill: #284e6f;
+	background: white;
+	border: none;
+	border-radius: 0;
+}
+#ui-search button:hover
+{
+	background: #D8DEE3;
+}
+
+
+#ui-sz
+{
+	height: 3dip;
+	background: #ccc;
+}
+#ui-sz > button.slider
+{
+	size: 10dip;
+	foreground: none;
+	background: #fff;
+	border: 3dip solid rgb(32,32,32);
+	border-radius: 50%;
+}
+
+
+project
+{
+	display: block;
+	visibility: none;
+	height: 0;
+	flow: horizontal;
+	padding: 10px 12px;
+	border-bottom: solid 1px silver;
+	border-spacing: 5px;
+}
+[black] project { background: #0c0c0c; color: white; }
+
+project:current { visibility: visible; height: 18px; transition: height(cubic-out, 400ms, none); }
+
+project b span { color: #D9534F; }
+project icon { fill: #647280; cursor: pointer; opacity: 0.5; margin: * 0; }
+project icon:hover { opacity: 1; }
+project icon.icon-cancel { size: 10px; }
+project .icount { color: #D9534F; }
+
+main
+{
+	position: relative;
+	visibility: none;
+	size: *;
+}
+
+#query
+{
+	visibility: none;
+	flow: horizontal;
+	padding: 0 20px;
+	vertical-align: middle;
+	border-spacing: 30px;
+	background: #030C14;
+}
+#query h1 { color: white; font-weight: normal; }
+#query span { color: #bac4cb; }
+#query #btn-mode-filled { margin-left: *; }
+
+
+body
+{
+	flow: vertical;
+	horizontal-align: middle;
+}
+
+#osx-wraper
+{
+	size: *;
+}
+
+@media os-vendor=="Apple"
+{
+	@const BRD_COLOR: rgb(0, 206, 233);
+
+	html, body { background: transparent; }
+
+	#osx-wraper
+	{
+		border: solid 3px @BRD_COLOR;
+		border-radius: 5px;
+		background: white;
+		overflow: hidden;// cause of border-radius
+	}
+	img#osx-arrow { foreground-image-transformation: colorize(@BRD_COLOR); }
+}
