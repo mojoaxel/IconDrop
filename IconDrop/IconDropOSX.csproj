@@ -82,11 +82,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="res\index.html" />
-    <None Include="res\key.bin" />
     <None Include="res\sidebarOSX.html" />
-    <None Include="res\unittest.html" />
-    <None Include="res\unittestSVG.html" />
-    <None Include="res\css\aside.css" />
     <None Include="res\css\global.css" />
     <None Include="res\css\home.css" />
     <None Include="res\css\icn-info.css" />
@@ -118,8 +114,6 @@
     <None Include="res\lib_settings\settings.tis" />
     <None Include="res\lib_settings\unittest.html" />
     <None Include="res\tis\UI.tis" />
-    <None Include="res\tis\chamfer.tis" />
-    <None Include="res\tis\dropzone.tis" />
     <None Include="res\tis\keyboard.tis" />
     <None Include="res\tis\consts.tis" />
     <None Include="res\tis\icon_behavior.tis" />
@@ -137,7 +131,6 @@
     <Compile Include="Src\Utils.cs" />
     <Compile Include="Src\Data\Joiner.cs" />
     <Compile Include="Src\Hosting\DnDOSX.cs" />
-    <Compile Include="Src\Hosting\DnDWindowsFUCK.cs" />
     <Compile Include="Src\Hosting\Host.cs" />
     <Compile Include="Src\Hosting\IconsSource.cs" />
     <Compile Include="Src\Hosting\Window.cs" />
@@ -146,12 +139,6 @@
     <Compile Include="Src\Svg\SvgXML.cs" />
     <Compile Include="Src\Data\Library.cs" />
     <Compile Include="Src\Native\SingleInstance.cs" />
-    <Compile Include="Src\Ion\Ion.cs" />
-    <Compile Include="Src\Ion\IonNet.cs" />
-    <Compile Include="Src\Ion\IonOSX.cs" />
-    <Compile Include="Src\Ion\IonWindows.cs" />
-    <Compile Include="Src\Ion\UHWID.cs" />
-    <Compile Include="Src\Ion\UpdateControl.cs" />
     <Compile Include="Src\Svg\SvgSpriteXML.cs" />
   </ItemGroup>
   <ItemGroup>
