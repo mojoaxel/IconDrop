@@ -26,8 +26,6 @@
 	<string>Main</string>
 	<key>LSUIElement</key>
 	<true/>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon-2.appiconset</string>
 	<key>CFBundleIconFile</key>
 	<string>IconMain.icns</string>
 	<key>CFBundleIdentifier</key>

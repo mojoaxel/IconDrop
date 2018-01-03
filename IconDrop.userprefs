@@ -1,5 +1,13 @@
 ﻿<Properties StartupConfiguration="{77C8C5E7-4AB3-49FF-B8CD-4EE0B850576A}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="IconDrop/Src/App.cs">
+    <Files>
+      <File FileName="IconDrop/Info.plist" />
+      <File FileName="IconDrop/Src/Data/Joiner.cs" Line="15" Column="36" />
+      <File FileName="IconDrop/Src/App.cs" Line="18" Column="3" />
+      <File FileName="IconDrop/Src/Data/Library.cs" Line="19" Column="2" />
+      <File FileName="IconDrop/res/index.html" Line="36" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x64" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>

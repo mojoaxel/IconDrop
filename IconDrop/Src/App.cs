@@ -27,7 +27,6 @@ namespace IconDrop
 		{
 			SciterHost.InjectLibConsoleDebugPeer = false;
 
-			UpdateControl.Setup();
 			Joiner.Setup();
 
 			double tooktime = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
@@ -59,7 +58,7 @@ namespace IconDrop
 			AppWnd = new WindowSidebar();
 			AppHost = new Host(AppWnd);
 
-			AppHost.SetupPage("sidebarOSX.html");
+			AppHost.SetupPage("index.html");
 			AppWnd.Show(false);
 
 			WindowSidebar.ShowPopup();
