@@ -180,7 +180,6 @@
     <Content Include="res\css\home.css" />
     <Content Include="res\css\list.css" />
     <Content Include="res\css\style.css" />
-    <None Include="res\unittest.tis" />
     <None Include="res\unittest.html" />
     <Content Include="res\img\activate.png" />
     <Content Include="res\img\arrow2.png" />

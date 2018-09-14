@@ -336,7 +336,7 @@ namespace ListUI
 	function ListPack(idx, name)
 	{
 		self#ui-search.Clear();
-		self#ui-search.AddTag("pack: " + name, true);
+		self#ui-search.AddTag("pack: " + name);
 
 		isource.ResetBySource(idx);
 		ResetViewAndLoad();
@@ -345,7 +345,7 @@ namespace ListUI
 	function ListStore(entry)
 	{
 		self#ui-search.Clear();
-		self#ui-search.AddTag("pack: " + entry.pack_name, true);
+		self#ui-search.AddTag("pack: " + entry.pack_name);
 
 		isource.ResetByStore(entry.id);
 		ResetViewAndLoad();

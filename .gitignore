@@ -1,9 +1,6 @@
-/ReleaseInfo/*.exe
-/ReleaseInfo/*.zip
-/ReleaseInfo/*/
-!/ReleaseInfo/ConfuserEx_bin/
-/IconstoreCrawler/Output
-
+/GPUCache
+/ReleaseInfo
+debug.log
 
 # Garbage
 .DS_Store

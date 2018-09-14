@@ -1,6 +1,7 @@
 function ListCollection(name)
 {
-	self#ui-search-txt.value = "collection:" + name;
+	self#ui-search.Clear();
+	self#ui-search.AddTag("collection: " + name);
 
 	isource.ResetByCollection(name);
 	ListUI.ResetViewAndLoad();
