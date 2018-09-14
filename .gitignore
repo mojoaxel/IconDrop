@@ -1,11 +1,9 @@
-/.gitBB
-/.gitignoreBB
-/Joiner
-/IconDrop/Src/Ion
-/IconDrop/res/key.bin
-/Midia
-/ReleaseInfo
-/push-bb.bat
+/ReleaseInfo/*.exe
+/ReleaseInfo/*.zip
+/ReleaseInfo/*/
+!/ReleaseInfo/ConfuserEx_bin/
+/IconstoreCrawler/Output
+
 
 # Garbage
 .DS_Store
@@ -17,4 +15,4 @@ packages/
 *.sdf
 *.db
 *.opendb
-*.user
+*.userprefs

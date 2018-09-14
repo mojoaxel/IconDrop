@@ -5,10 +5,10 @@ using System.Linq;
 using System.Globalization;
 using System.Text;
 using SciterSharp;
+using IconDrop.Data;
 #if OSX
 using CoreGraphics;
 #endif
-using IconDrop.Data;
 
 namespace IconDrop.Svg
 {
@@ -75,7 +75,16 @@ namespace IconDrop.Svg
 			while(_ic != _svg.Length)
 			{
 				char cmd = _svg[_ic++];
-				ReadOperands();
+
+				try
+				{
+					ReadOperands();
+				}
+				catch(Exception ex)
+				{
+					throw;
+					//Debug.Assert(false);
+				}
 
 				switch(cmd)
 				{
@@ -129,10 +138,19 @@ namespace IconDrop.Svg
 					continue;
 				}
 
+				bool dot = false;
 				while(true)
 				{
 					c = _svg[_ic];
-					if(char.IsNumber(c) || c=='.')
+					if(dot == false && c == '.')
+					{
+						sb.Append(c);
+						dot = true;
+						if(++_ic == _svg.Length)
+							break;
+						continue;
+					}
+					if(char.IsNumber(c))
 					{
 						sb.Append(c);
 						if(++_ic == _svg.Length)
@@ -415,16 +433,37 @@ namespace IconDrop.Svg
 			if(_operands.Count % 7 != 0)
 				throw new Exception("Invalid number of parameters for A command");
 			
-			Debug.Assert(false);
+			//Debug.Assert(false);
 			for(int i = 0; i < _operands.Count; i += 7)
 			{
-				float x = _operands[i + 0];
-				float y = _operands[i + 1];
-				float angle = _operands[i + 2];
+				float rX = _operands[i + 0];
+				float rY = _operands[i + 1];
+				float rotation = _operands[i + 2];
+				float arc = _operands[i + 3];
+				float sweep = _operands[i + 4];
+				float eX = _operands[i + 5];
+				float eY = _operands[i + 6];
 
+				if(relative)
+				{
+					eX += _posx;
+					eX += _posy;
+				}
+
+				_scaler.AddXYOperands(rX, rY);
+				_scaler.AddXOperand(rotation);
+				_scaler.AddXOperand(arc);
+				_scaler.AddXOperand(sweep);
+				_scaler.AddXYOperands(eX, eY);
+
+				_posx = eX;
+				_posy = eY;
+
+				//_spath.ArcTo(rx, rY, rotation, eX, eY, )
 				//_cgpath.AddArc()
 				//_path.ArcTo();
 			}
+			_scaler.AddOperator('A');
 		}
 	}
 
@@ -436,9 +475,28 @@ namespace IconDrop.Svg
 
 		public void Scale(float factor)
 		{
-			for(int i = 0; i < _operands.Count; i++)
-				for(int j = 0; j < _operands[i].Count; j++)
-					_operands[i][j] *= factor;
+			Debug.Assert(_operators.Count == _operands.Count);
+			for(int i = 0; i < _operators.Count; i++)
+			{
+				if(_operators[i] == 'A' || _operators[i] == 'a')
+				{
+					for(int j = 0; j < _operands[i].Count; j++)
+					{
+						if(j % 7 == 2)
+							continue;
+						if(j % 7 == 3)
+							continue;
+						if(j % 7 == 4)
+							continue;
+						_operands[i][j] *= factor;
+					}
+				}
+				else
+				{
+					for(int j = 0; j < _operands[i].Count; j++)
+						_operands[i][j] *= factor;
+				}
+			}
 		}
 
 		public void OffsetXY(float x, float y)
@@ -498,6 +556,11 @@ namespace IconDrop.Svg
 
 				case 'Q': case 'q': Debug.Assert(_tmp_operands.Count % 4 == 0); break;
 				case 'T': case 't': Debug.Assert(_tmp_operands.Count % 2 == 0); break;
+
+				case 'A': case 'a': Debug.Assert(_tmp_operands.Count % 7 == 0); break;
+				case 'Z': case 'z': break;
+
+				default: Debug.Assert(false); break;
 			}
 			_operators.Add(c);
 			_operands.Add(_tmp_operands.ToList());
@@ -535,6 +598,8 @@ namespace IconDrop.Svg
 					sb.Append(ftos);
 				}
 			}
+
+			Debug.Assert(!sb.ToString().Contains("e-"));
 			return sb.ToString();
 		}
 	}

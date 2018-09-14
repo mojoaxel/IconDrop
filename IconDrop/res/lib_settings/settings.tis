@@ -50,10 +50,12 @@ if(!View["settings-" + Settings.cNAME] || Utils.InDBGView)
 
 	// Create default data
 	if(!Settings.ns_data.config)
-		Settings.ns_data.config = { helptt: true };
+		Settings.ns_data.config = {};
 	if(!Settings.ns_data.arr_projects)
 		Settings.ns_data.arr_projects = [];
 	if(!Settings.ns_data.arr_collections)
 		Settings.ns_data.arr_collections = [];
+	if(typeof(Settings.ns_data.trial_usecnt) != #integer)
+		Settings.ns_data.trial_usecnt = 0;
 }
 Settings.ns_data = View["settings-" + Settings.cNAME];

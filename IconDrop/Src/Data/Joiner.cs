@@ -16,6 +16,7 @@ namespace IconDrop.Data
 
 		public static void Setup()
 		{
+			Store.Setup();
 			Library.Setup();
 
 			Join();
@@ -37,6 +38,13 @@ namespace IconDrop.Data
 			{
 				foreach(var collected in dir.Value)
 					dic.Add(collected.icon.hash, collected.icon);
+			}
+
+			// store packs
+			foreach(var pack in Store._store_packs)
+			{
+				foreach(var icn in pack.icons)
+					dic.Add(icn.hash, icn);
 			}
 
 			_iconsByHash = dic;

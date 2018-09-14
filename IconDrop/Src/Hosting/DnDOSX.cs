@@ -41,9 +41,13 @@ namespace IconDrop.Hosting
 			NSPasteboard.GeneralPasteboard.SetDataForType(data, NSPasteboard.NSPdfType);
 		}
 
-		public void StartDnD(string svgpath, int xView, int yView)
+		private Action _completed;
+
+		public void StartDnD(string svgpath, int xView, int yView, Action completed)
 		{
 			Debug.Assert(File.Exists(svgpath));
+
+			_completed = completed;
 
 			NSDraggingItem di;
 			var url_pdf = NSUrl.FromFilename(svgpath);
@@ -65,6 +69,8 @@ namespace IconDrop.Hosting
 		{
 			Debug.WriteLine("DraggedImageEndedAtOperation");
 			WindowSidebar.ShowPopup();
+
+			_completed();
 		}
 	}
 }

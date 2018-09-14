@@ -6,6 +6,7 @@ using SciterSharp;
 using SciterSharp.Interop;
 using IconDrop.Data;
 using IconDrop.Hosting;
+using IconDrop.Svg;
 
 namespace IconDrop
 {
@@ -25,7 +26,7 @@ namespace IconDrop
 
 		public static void Run()
 		{
-			SciterHost.InjectLibConsoleDebugPeer = false;
+            Debug.WriteLine("Sciter: " + SciterX.Version);
 
 			Joiner.Setup();
 
@@ -39,7 +40,6 @@ namespace IconDrop
 
 #if !OSX
 			PInvokeUtils.RunMsgLoop();
-			Environment.Exit(0);
 #endif
 		}
 
@@ -65,21 +65,24 @@ namespace IconDrop
 #endif
 		}
 
-		public static void Exit()
-		{
-#if WINDOWS
-			PInvoke.User32.PostQuitMessage(0);
-#endif
-		}
-
 		public static void CreateUnittest()
 		{
-#if WINDOWS
-			AppWnd = new Window();
+			AppWnd = new WindowUnittest();
 			AppHost = new Host(AppWnd);
 
 			AppHost.SetupPage("unittest.html");
 			AppWnd.Show();
+		}
+
+		public static void Exit()
+		{
+#if WINDOWS
+			Window.Dispose();
+			AppWnd.Destroy();
+			Environment.Exit(0);
+			//PInvoke.User32.PostQuitMessage(0);
+#else
+			AppKit.NSApplication.SharedApplication.Terminate(null);
 #endif
 		}
 	}

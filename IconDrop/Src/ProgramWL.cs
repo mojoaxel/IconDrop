@@ -30,14 +30,16 @@ namespace IconDrop
 			Mono.Setup();
 #endif
 
-#if !DEBUG && WINDOWS
+#if false
+//#if !DEBUG && WINDOWS
 			if(SingleInstance.IsRunningAndAcquire())
 				return;
 #endif
 
 			App.Run();
 
-#if !DEBUG && WINDOWS
+#if false
+//#if !DEBUG && WINDOWS
 			SingleInstance.Release();
 #endif
 		}

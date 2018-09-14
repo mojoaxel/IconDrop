@@ -46,6 +46,7 @@ namespace IconDrop.Hosting
 				{
 					User32.ShowWindow(App.AppWnd._hwnd, User32.WindowShowStyle.SW_RESTORE);
 					User32.SetForegroundWindow(App.AppWnd._hwnd);
+					wnd.Icon = Properties.Resources.IconMain;
 				}
 			};
 		}

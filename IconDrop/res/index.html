@@ -1,4 +1,4 @@
-<!-- OmniView:on, console:off -->
+<!-- OmniView:on -->
 <html>
 <head>
 	<style>
@@ -11,6 +11,7 @@
 		@import url(css/list.css);
 		@import url(css/home.css);
 		@import url(css/icn-info.css);
+		@import url(css/iconstore.css);
 
 		isource { behavior: IconsSource; }
 	</style>
@@ -23,10 +24,19 @@
 		include "tis/keyboard.tis";
 		include "tis/icon_info.tis";
 		include "tis/icon_behavior.tis";
+		include "tis/icon_store.tis";
 		include "tis/collections.tis";
 
 		Setup();
-		
+
+		if(!Utils.InDBGView)
+		{
+			/*view.Host_IsUpdateAvailable(function(version) {
+				self#info-update.$(em).text = version
+				self#info-update.show();
+			});*/
+		}
+
 		if(Utils.IsWindows)
 		{
 			self.closing = function() {
@@ -51,32 +61,39 @@
 			y = view.box(#top);
 			view.move(x, y);
 			view.windowState = View.WINDOW_SHOWN;
+			self#ui-search-txt.state.focus = true;
 		}
 	</script>
 
 	<isource />
+
+	<menu .menu-chromed #menu-icon .outline>
+		<div .inner>
+			<ul>
+				<li>Copy Skia code</li>
+			</ul>
+		</div>
+	</menu>
+
+	<menu .menu-chromed #menu-pro .outline style="margin-left: -6px; margin-top: -2px">
+		<div .inner>
+			<ul>
+				<li cmd="site">Go to site to purchase</li>
+				<li cmd="activate">Enter activation code</li>
+			</ul>
+		</div>
+	</menu>
 </head>
 
 <body>
 	<img src="img/arrow2.png" #osx-arrow.hide-win />
 
 	<div #osx-wraper>
-		<drop>
-			Import SVG files...
-		</drop>
-
-		<import>
-			<frame />
-		</import>
-
 		<header>
 			<!--<img src="img/logo.svg" #logo />-->
 			<icon .icon-left-open #back />
 
-			<div #ui-search>
-				<widget #ui-search-txt type="text" />
-				<button #btn-search-clear />
-			</div>
+			<div #ui-search />
 
 			<hflow #toolbar>
 				<icon .icon-color-adjust #btn-color />
@@ -91,14 +108,35 @@
 			</div>
 		</div>
 
-		<project>
+		<main #main>
+			<div #scroller>
+				<div #noicon>No icon was found..</div>
+				<div #list />
+				<widget #btn-load-more.btn-red><icon .icon-plus />Load more...</widget>
+			</div>
+		</main>
+
+		<project .dbg>
 			Project: <b .name /> <b .icount />
 			<icon .icon-list #ui-proj-eye style="margin-left: *; margin-top: 2px;" poptip="List project icons" popnow />
 			<icon .icon-folder #ui-proj-folder poptip="Reveal icon sprite SVG output" popnow />
 			<icon .icon-cancel #ui-proj-close poptip="Deactivate project" popnow />
 		</project>
-
+		
 		<home #home>
+			<div #ion>
+				<vflow>
+					<span #free>Needing a better icon-manager?</span>
+					<span #pro>Check DESIGN ARSENAL!</span>
+				</vflow>
+				<icon .icon-cancel></icon>
+				
+				<!--<div #info-update>
+					An <b>updated version</b> of IconDrop is available!
+					<br />Latest version: <b><em style="font-style: normal" /> - <a href="http://icondrop.io/">Download it</a></b>
+				</div>-->
+			</div>
+
 			<h1>Home</h1>
 
 			<div #home-scroller>
@@ -132,32 +170,22 @@
 						<widget .btn-blue #btn-add-project><icon .icon-plus />Add new</widget>
 					</hflow>
 				</section>
+
+				<section>
+					<hflow>
+						Online icons packs:
+
+						<div #ui-store-search>
+							<widget #ui-store-search-txt type="text" />
+							<button #btn-store-search-clear />
+						</div>
+					</hflow>
+
+					<div #store-list />
+					<button #btn-store-load .btn-blue><icon .icon-dot-3 /> Load more</button>
+				</section>
 			</div>
 		</home>
-
-		<projlist #pl>
-			<h1 />
-
-			<div #pl-scroller>
-				<div #pl-list />
-			</div>
-		</projlist>
-
-		<main #main>
-			<!--<div #query>
-				<h1>Search: My tag</h1>
-				<span>12 icons</span>
-				<button #btn-mode-filled>Filled</button>
-				<button #btn-mode-outlined>Outlined</button>
-			</div>-->
-
-			<div #scroller>
-				<div #noicon>No icon was found..</div>
-				<div #list />
-				<div #overflow>Showing only first 40 icons. Get PRO to list all icons.</div>
-				<widget #btn-load-more.btn-red><icon .icon-plus />Load more...</widget>
-			</div>
-		</main>
 
 		<div #icn-info>
 			<icn><svg #svg-thumb /></icn>

@@ -46,6 +46,7 @@ namespace IconDrop.Data
 		public string hash;
 		public string id;// for SVG sprite
 		public string path;
+		public bool colored;
 		public List<string> arr_svgpath = new List<string>();
 		public List<string> arr_fill = new List<string>();
 		public List<string> arr_tags = new List<string>();
@@ -59,6 +60,7 @@ namespace IconDrop.Data
 			sv["hash"] = new SciterValue(hash);
 			sv["arr_tags"] = SciterValue.FromList(arr_tags);
 			sv["source"] = source;
+			sv["colored"] = new SciterValue(colored);
 			if(kind == EIconKind.COLLECTION)
 				sv["path"] = new SciterValue(path);
 			return sv;

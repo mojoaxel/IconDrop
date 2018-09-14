@@ -148,6 +148,9 @@ namespace UI
 
 		function ListProject()
 		{
+			self#ui-search.Clear();
+			self#ui-search.AddTag("project icons: " + _obj.name);
+
 			isource.ResetByProj(_obj.dic_icons);
 			ListUI.ResetViewAndLoad();
 		}
@@ -165,29 +168,8 @@ namespace UI
 	{
 		Utils.installLinkHandler(self);
 
-		self#back.onClick = ::ShowHome();
-
-		self#ui-search-txt.on("focusin", function() {
-			self.post(::self#ui-search-txt.doSelectAll());
-		});
-
-		self#ui-search-txt.on("~keydown", function(evt) {
-			if(evt.keyCode == Event.VK_RETURN)
-			{
-				var needle = self#ui-search-txt.value.trim().toLowerCase();
-				if(needle)
-				{
-					self#ui-search-txt.doSelectAll();
-					ListUI.ListSearch(needle);
-				}
-				return true;
-			}
-		});
-		self#ui-search-txt.state.focus = true;
-
-		self#btn-search-clear.onClick = function() {
-			CloseSearch();
-		};
+		self#back.onClick = 
+		self#ui-search.OnClose = ::ShowHome();
 
 		function SetSize(inc) {
 			_isize = (_isize + (inc ? 1 : -1)).limit(0,_arr_sizes.length-1);
@@ -217,18 +199,23 @@ namespace UI
 
 	function SetupHome()
 	{
+		self#ion.onClick = ::Sciter.launch("https://designarsenal.co/#icondrop");
+		self#ion.$(icon).onClick = function() {
+			self#ion.remove();
+			return true;
+		};
+		
 		// Section 1: icon packs
 		if(!Utils.InDBGView)
 		{
 			var arr_sources = isource.GetSources();
-			for(var (idx, source) in arr_sources) {
+			for(var (idx, source) in arr_sources)
 				self#ui-packsel.options.$append(<option value={idx}>{source.name}</option>);
-			}
 		}
 
 		self#ui-packsel.on("change", function() {
-			ListUI.ListPack(this.value);
-			self.timer(1000, ::self#ui-packsel.value = undefined);
+			ListUI.ListPack(this.value, this.$(option:checked).text);
+			self.timer(100, ::self#ui-packsel.value = undefined);
 		});
 
 		// Section 2: collections
@@ -258,12 +245,6 @@ namespace UI
 		};
 
 		self#btn-add-project.onClick = function() {
-			if(Settings.ns_data.arr_projects.length>=1)
-			{
-				view.msgbox(#alert, "With FREE version of IconDrop you can only have 1 SVG sprite project.\nRemove your current project to be able to create a new one.", Consts.APPNAME);
-				return;
-			}
-
 			var title;
 			var res = view.msgbox(#information, "Name of the project: <br><input !text />", "New project", [#ok, #cancel], function(el_root) { el_root.$(input).state.focus = true; }, function(el_root, id) {
 				if(id==#ok)
@@ -301,9 +282,6 @@ namespace UI
 	function CloseSearch()
 	{
 		ShowHome();
-		self.post(function() {
-			self#ui-search-txt.state.focus = true;
-		});
 	}
 
 	function ShowMain()
@@ -322,7 +300,8 @@ namespace UI
 	{
 		_inhome = true;
 		
-		self#ui-search-txt.value = undefined;
+		self#ui-search.Clear();
+		self#ui-search.OnSearch = :needle:ListUI.ListSearch(needle);
 
 		self#main.hide();
 		self#home.show();
@@ -337,7 +316,7 @@ namespace ListUI
 {
 	function Setup()
 	{
-		self#btn-load-more.on("mouseenter", function() {
+		self#btn-load-more.on("click", function() {
 			this.hide();
 			LoadItensBulk();
 		});
@@ -354,17 +333,21 @@ namespace ListUI
 		ResetViewAndLoad();
 	}
 	
-	function ListPack(idx)
+	function ListPack(idx, name)
 	{
-		self#ui-search-txt.value = "pack:" + idx;
+		self#ui-search.Clear();
+		self#ui-search.AddTag("pack: " + name, true);
+
 		isource.ResetBySource(idx);
 		ResetViewAndLoad();
 	}
 
 	function ListStore(entry)
 	{
+		self#ui-search.Clear();
+		self#ui-search.AddTag("pack: " + entry.pack_name, true);
+
 		isource.ResetByStore(entry.id);
-		self#ui-search-txt.value = "pack:" + entry.pack_name;
 		ResetViewAndLoad();
 	}
 
@@ -384,8 +367,6 @@ namespace ListUI
 		var cnt = 0;
 		var hprev = 0;
 
-		self#overflow.hide();
-
 		isource.LoadBulk(function(icon) {
 			var el_icon = IconBehavior.Create(icon);
 
@@ -401,8 +382,6 @@ namespace ListUI
 			}
 			hprev = self#list.box(#height);
 			return true;
-		}, function() {
-			self#overflow.show();
 		});
 
 		if(self#list.length==0)
@@ -419,4 +398,6 @@ function Setup()
 	UI.SetupHome();
 	ListUI.Setup();
 	IconInfo.Setup();
+
+	self.post(::UI.ShowHome());
 }

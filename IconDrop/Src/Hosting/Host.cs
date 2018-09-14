@@ -27,7 +27,18 @@ namespace IconDrop.Hosting
 
 		protected override SciterXDef.LoadResult OnLoadData(SciterXDef.SCN_LOAD_DATA sld)
 		{
-			if(sld.uri.StartsWith("svg:"))
+			if(sld.uri.StartsWith("tmp:tmp.svg"))
+			{
+				var icn = Joiner._iconsByHash.ToList()[1200].Value;
+				var path = SvgParser.FromPath(icn.arr_svgpath[0]);
+				//path.NormalizeToSize(100);
+
+				string xml = SvgXML.FromSvgParser(path).ToXML();
+				byte[] bytes = Encoding.UTF8.GetBytes(xml);
+				_api.SciterDataReady(sld.hwnd, sld.uri, bytes, (uint)bytes.Length);
+				return SciterXDef.LoadResult.LOAD_OK;
+			}
+			else if(sld.uri.StartsWith("svg:"))
 			{
 				if(sld.uri.Contains("?rnd="))
 					sld.uri = sld.uri.Split('?')[0];
@@ -52,17 +63,41 @@ namespace IconDrop.Hosting
 						byte[] bytes = Encoding.UTF8.GetBytes(xml);
 						_api.SciterDataReady(sld.hwnd, sld.uri, bytes, (uint)bytes.Length);
 						break;
+
+					case EIconKind.STORE:
+						if(Store.IsIconLoaded(icn))
+						{
+							byte[] bytess = File.ReadAllBytes(icn.path);
+							_api.SciterDataReady(sld.hwnd, sld.uri, bytess, (uint)bytess.Length);
+							return SciterXDef.LoadResult.LOAD_OK;
+						}
+						else
+						{
+							Store.LoadIcon(icn).ContinueWith((t) =>
+							{
+								if(t.Status == TaskStatus.RanToCompletion)
+								{
+									byte[] bytess = File.ReadAllBytes(icn.path);
+									_api.SciterDataReadyAsync(sld.hwnd, sld.uri, bytess, (uint)bytess.Length, sld.requestId);
+								}
+							});
+							return SciterXDef.LoadResult.LOAD_DELAYED;
+						}
 				}
 				return SciterXDef.LoadResult.LOAD_OK;
 			}
 			return base.OnLoadData(sld);
 		}
-		protected override void OnEngineDestroyed()
+
+		/*protected override void OnDataLoaded(SciterXDef.SCN_DATA_LOADED sdl)
 		{
-#if WINDOWS
-			Window.Dispose();
-#endif
-		}
+			if(sdl.uri.StartsWith(Consts.SERVER_ICONS + "IconPacks/IconFile"))
+			{
+				byte[] data = new byte[sdl.dataSize];
+				Marshal.Copy(sdl.data, data, 0, (int)sdl.dataSize);
+				Store.ResolveIconData(sdl.uri, data);
+			}
+		}*/
 	}
 
 	class HostEvh : SciterEventHandler
@@ -75,6 +110,24 @@ namespace IconDrop.Hosting
 				Directory.Delete(_tmp_dir, true);
 			Directory.CreateDirectory(_tmp_dir);
 		}
+
+		public bool Host_InDbg(SciterElement el, SciterValue[] args, out SciterValue result)
+		{
+#if DEBUG
+			result = new SciterValue(true);
+#else
+			result = new SciterValue(false);
+#endif
+			return true;
+		}
+
+		/*
+		public bool Host_Exec(SciterElement el, SciterValue[] args, out SciterValue result)
+		{
+			Process.Start(args[0].Get(""), args[1].Get(""));
+			result = null;
+			return true;
+		}*/
 
 		public bool Host_RevealFile(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
@@ -101,31 +154,35 @@ namespace IconDrop.Hosting
 			return true;
 		}
 
-		public bool Host_Quit(SciterElement el, SciterValue[] args, out SciterValue result)
+		public void Host_Quit() => App.Exit();
+
+		public bool Host_IconStoreList(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
-			App.Exit();
-			result = null;
+			result = new SciterValue();
+			foreach(var pack in Store._store_packs)
+				result.Append(pack.sv);
 			return true;
 		}
 
-		public bool Host_SetupCollections(SciterElement el, SciterValue[] args, out SciterValue result)
+		public void Host_SetupCollections(SciterValue[] args)
 		{
 			string dir = args[0].Get("");
 			bool create_demo = args[1].Get(false);
 			var cbk = args[2];
 			Collections.Setup(dir, create_demo, cbk);
-			
-			result = null;
-			return true;
 		}
 
-		public bool Host_CopySVGIconUse(SciterElement el, SciterValue[] args, out SciterValue result)
+		public void Host_CopySkiaCode(SciterValue[] args)
+		{
+			string hash = args[0].Get("");
+			Utils.CopyText(SKIconCode.IconToCode(Joiner._iconsByHash[hash]));
+		}
+
+		public void Host_CopySVGIconUse(SciterValue[] args)
 		{
 			string name = args[0].Get("");
 			string svguse = $"<svg class=\"icon icon-{name}\"><use xlink:href=\"#{name}\"></use></svg>";
 			Utils.CopyText(svguse);
-			result = null;
-			return true;
 		}
 
 		public bool Host_CopySVGIconSymbol(SciterElement el, SciterValue[] args, out SciterValue result)
@@ -138,6 +195,15 @@ namespace IconDrop.Hosting
 			return true;
 		}
 
+		/*public bool Host_IsUpdateAvailable(SciterElement el, SciterValue[] args, out SciterValue result)
+		{
+			var version = UpdateControl.IsUpdateAvailable();
+			if(version != null)
+				args[0].Call(new SciterValue(version));
+			result = null;
+			return true;
+		}*/
+
 		public bool Host_SaveTempSVG(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
 			string iconhash = args[0].Get("");
@@ -148,10 +214,12 @@ namespace IconDrop.Hosting
 			if(icn.kind == EIconKind.LIBRARY)
 			{
 				var svg = SvgXML.FromIcon(icn);
-				svg.Scale(0.1f);
+                var factor = 75f / (float)icn.bounds.w;
+                svg.Scale(factor);
 				var xml = svg.ToXML(white);
 
-				filepath = _tmp_dir + icn.arr_tags[0] + ".svg";
+                string fname = icn.arr_tags[0].Replace("/", "").Replace("\\", "");
+                filepath = _tmp_dir + fname + ".svg";
 				File.WriteAllText(filepath, xml);
 			} else {
 				filepath = icn.path;
@@ -173,15 +241,12 @@ namespace IconDrop.Hosting
 			return true;
 		}
 
-		/*public bool Host_DaysToExpire(SciterElement el, SciterValue[] args, out SciterValue result)
-		{
-			result = new SciterValue(Ion.Ion.DaysToExpire);
-			return true;
-		}*/
-
-		public bool Host_GenerateSVGSprite(SciterElement el, SciterValue[] args, out SciterValue result)
+		public void Host_GenerateSVGSprite(SciterValue[] args)
 		{
 			string sv_outputpath = args[0].Get("");
+			if(!Directory.Exists(Path.GetDirectoryName(sv_outputpath)))
+				return;
+
 			var sv_icons = args[1];
 			sv_icons.Isolate();
 
@@ -196,9 +261,6 @@ namespace IconDrop.Hosting
 				xml.AddIcon(icon);
 			}
 			File.WriteAllText(sv_outputpath, xml.ToXML());
-
-			result = null;
-			return true;
 		}
 
 #if OSX
@@ -207,7 +269,10 @@ namespace IconDrop.Hosting
 			string file = args[0].Get("");
 			int xView = args[1].Get(-1);
 			int yView = args[2].Get(-1);
-			new DnDOSX().StartDnD(file, xView, yView);
+			new DnDOSX().StartDnD(file, xView, yView, () =>
+			{
+				args[3].Call();
+			});
 
 			result = null;
 			return true;

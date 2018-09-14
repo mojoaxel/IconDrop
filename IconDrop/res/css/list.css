@@ -18,9 +18,12 @@
 
 	style-set: ListIcon;
 }
+
+#list icn:not(.colored) svg { fill: black; }
+[black] #list icn:not(.colored) svg { fill: white; }
+
 [black] #scroller { background: black; }
 [black] #list { background: black; }
-[black] #list icn.flat svg { fill: white !important; }
 [black] #btn-load-more { background: #141414; color: white; border-color: white; }
 
 #drag-img { height: 0; overflow: hidden; position: absolute; }
@@ -53,18 +56,6 @@
 	margin: 0 *;
 	margin-bottom: 10px;
 	padding: 4px 10px;
-}
-
-#overflow
-{
-	margin: 0 *;
-	padding: 2px 10px;
-	width: max-content;
-	border-radius: 100px;
-	border: solid 1px black;
-	background: black;
-	font-size: 11px;
-	color: white;
 }
 
 @set ListIcon

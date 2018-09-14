@@ -56,7 +56,7 @@ namespace IconDrop
 			int unixTimestamp = (int)(dt.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			return unixTimestamp;
 		}
-		
+
 		public static string CalculateMD5Hash(string input)
 		{
 			byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);

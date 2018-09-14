@@ -13,6 +13,9 @@
 	style-set: IcnInfo;
 }
 
+#icn-info:not(.colored) { fill: black; }
+[black] #icn-info:not(.colored) { fill: white; }
+
 [black] #icn-info
 {
 	background: #0c0c0c;

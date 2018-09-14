@@ -21,10 +21,28 @@
 			}
 		}
 
+		/*self#ui-btn-add-sprite.onClick = function() {
+			UI.Proj.IconAddRmv(true, _obj_icon.hash);
+		};
+		self#ui-btn-rmv-sprite.onClick = function() {
+			UI.Proj.IconAddRmv(false, _obj_icon.hash);
+		};*/
 		self#ui-btn-usecopy.onClick = function() {
+			if(!Ion.IsActive && _obj_icon.kind == EIconKind.STORE)
+			{
+				view.msgbox(#alert, "Using icons from online packs in only available in PRO version.", Consts.APPNAME);
+				return;
+			}
+
 			view.Host_CopySVGIconUse(UI.Proj.IconGetName(_obj_icon));
 		};
 		self#ui-btn-symbolcopy.onClick = function() {
+			if(!Ion.IsActive && _obj_icon.kind == EIconKind.STORE)
+			{
+				view.msgbox(#alert, "Using icons from online packs in only available in PRO version.", Consts.APPNAME);
+				return;
+			}
+
 			if(UI.Proj._active)
 				view.Host_CopySVGIconSymbol(_obj_icon.hash, UI.Proj.IconGetName(_obj_icon));
 			else
@@ -72,6 +90,11 @@
 			self#info-filename[0].text = obj_icon.arr_tags[0];
 			self#info-collection[0].text = obj_icon.source.name;
 			self#info-area-col.update();
+		} else {
+			self#info-area-store.show();
+			self#info-store-filename[0].text = obj_icon.arr_tags[0];
+			self#info-store-pack.text = obj_icon.source.name + " / " + obj_icon.source.author;
+			self#info-store-pack.@#href = obj_icon.source.url;
 		}
 
 		if(!UI.Proj._active)
@@ -89,6 +112,8 @@
 			self#ui-icon-name.onValueChanged();
 		}
 		
+		log(obj_icon.colored);
+		self#icn-info.@.toggleClass("colored", obj_icon.colored);
 		self#icn-info.show();
 	}
 

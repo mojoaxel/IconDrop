@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SciterSharp;
+using IconDrop.Data;
 
 namespace IconDrop.Data
 {

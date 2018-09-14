@@ -1,6 +1,6 @@
 @font-face
 {
-	font-family: idrop-207929;
+	font-family: idrop-11990;
 	font-style: normal;
 	src: url(idrop.ttf);
 }
@@ -8,7 +8,7 @@
 i[class*=icon-]
 {
 	display: inline-block;
-	font-family: idrop-207929;
+	font-family: idrop-11990;
 	font-size: 1.20em;
 	font-style: normal;
 }

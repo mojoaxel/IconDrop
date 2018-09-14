@@ -1,23 +1,5 @@
 @font-face
 {
-	font-family: Hack;
-	src: url(Hack-Regular.ttf);
-}
-@font-face
-{
-	font-family: Hack;
-	font-weight: bold;
-	src: url(Hack-Bold.ttf);
-}
-
-@font-face
-{
-	font-family: 'Shumi';
-	src: url(Shumi.otf);
-}
-
-@font-face
-{
 	font-family: 'alphanum20';
 	src: url(alphanum20.ttf);
 }

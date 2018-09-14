@@ -1,7 +1,5 @@
-![](https://raw.githubusercontent.com/MISoftware/IconDrop/master/screen.png)
+![](https://raw.githubusercontent.com/MISoftware/IconDrop/master/demo.gif)
 
-IconDrop is a **multi-platform** desktop app (**Windows and OSX**) coded in C#/HTML using **[Sciter engine](https://sciter.com/)**.
+IconDrop is a **SVG icon-manager** desktop app for Windows and OSX.
 
-For the sake of clarification, the source-code does not contains the PRO features, only the FREE part of the app.
-
-**Source-code license**: GNU General Public License v3.0
+Essentially it comes filled with many ready-to-use icons packs. To use an icon in Photoshop or Sketch, for example, simply drag'n'drop the icon to it. You are actually simply dragging a SVG file.

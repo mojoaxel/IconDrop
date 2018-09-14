@@ -14,9 +14,14 @@ namespace IconDrop.Hosting
 		#region TIScript Interface
 		private IReadOnlyList<Icon> _iconList;
 		private int _bulk_pos = 0;
-		private bool _free_overflow = false;
 		private Random _rnd = new Random();
 
+		public bool EnsureStoreIsLoaded(SciterElement el, SciterValue[] args, out SciterValue result)
+		{
+			Store.LoadStorePack(args[0].Get(""), args[1]);
+			result = null;
+			return true;
+		}
 
 		public bool IconHashExists(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
@@ -30,6 +35,8 @@ namespace IconDrop.Hosting
 		{
 			string hash = args[0].Get("");
 			string url = "svg:" + hash + ".svg";
+			if(Joiner._iconsByHash[hash].kind == EIconKind.STORE)
+				url += "?rnd=" + _rnd.Next(9999999);
 			result = new SciterValue(url);
 			return true;
 		}
@@ -43,7 +50,6 @@ namespace IconDrop.Hosting
 		private void SetIconList(List<Icon> list, bool overflows = true)
 		{
 			_iconList = list;
-			_free_overflow = false;
 			_bulk_pos = 0;
 		}
 
@@ -76,7 +82,14 @@ namespace IconDrop.Hosting
 			return true;
 		}
 
-		
+		public bool ResetByStore(SciterElement el, SciterValue[] args, out SciterValue result)
+		{
+			var pack = Store._store_packs.Single(p => p.id == args[0].Get(""));
+			SetIconList(pack.icons, false);
+			result = null;
+			return true;
+		}
+
 		public bool ResetByNeedle(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
 			string needle = args[0].Get("");
@@ -122,7 +135,6 @@ namespace IconDrop.Hosting
 		public bool LoadBulk(SciterElement el, SciterValue[] args, out SciterValue result)
 		{
 			var f_CreateItem = args[0];
-			var f_FreeOverflow = args[1];
 
 			foreach(Icon icon in _iconList.Skip(_bulk_pos))
 			{
@@ -135,8 +147,6 @@ namespace IconDrop.Hosting
 				else
 					_bulk_pos++;
 			}
-			if(_free_overflow)
-				f_FreeOverflow.Call();
 
 			result = null;
 			return true;

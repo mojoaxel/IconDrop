@@ -23,7 +23,7 @@ namespace IconDrop.Data
 
 		public static void Setup()
 		{
-			var data = File.ReadAllBytes(Consts.AppDir_Shared + "lib.json");
+			var data = File.ReadAllBytes(Consts.AppDir_Shared + "id_flaticons.json");
 			string json = Encoding.UTF8.GetString(data);
 			_lib = FromSV(SciterValue.FromJSONString(json));
 
@@ -31,6 +31,7 @@ namespace IconDrop.Data
 			var r = _lib.sources.GroupBy(l => l.name);
 			Debug.Assert(r.Count() == _lib.sources.Count);
 #endif
+
 
 			int ihash = 100;
 			foreach(var source in _lib.sources)
