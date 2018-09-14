@@ -38,6 +38,8 @@ namespace IconDrop
 			else
 				CreateUnittest();
 
+			//AppHost.DebugInspect();
+
 #if !OSX
 			PInvokeUtils.RunMsgLoop();
 #endif

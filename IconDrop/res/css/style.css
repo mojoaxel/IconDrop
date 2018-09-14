@@ -54,63 +54,6 @@ header icon#back
 }
 header #toolbar { visibility: none; }
 
-#ui-search
-{
-	flow: horizontal;
-	vertical-align: middle;
-	overflow: hidden;
-	
-	min-width: 200px;
-	max-width: 320px;
-
-	size: 1.1*;
-	margin: 0 *;
-	padding: 0;
-	padding-left: 10px;
-
-	background: #F5F8FA;
-	border-radius: 2px;
-
-	background-image: url(path:M363.91 181.955C363.91 81.473 282.44 0 181.955 0 81.474 0 0 81.473 0 181.955s81.474 181.95 181.956 181.95c100.484 0 181.953-81.468 181.953-181.95zm-181.954 136.46c-75.252 0-136.465-61.207-136.465-136.46 0-75.25 61.214-136.464 136.466-136.464 75.25 0 136.468 61.214 136.468 136.466 0 75.252-61.218 136.46-136.468 136.46zM471.882 407.567L360.567 296.243c-16.586 25.795-38.536 47.734-64.33 64.32L407.56 471.89c17.772 17.768 46.587 17.768 64.32 0 17.774-17.74 17.774-46.554.002-64.32z);
-	background-repeat: no-repeat;
-	background-size: 1.1em;
-	background-position-top: 48%;
-	background-position-right: .7em;
-	fill: #ced4d8;
-}
-#ui-search widget
-{
-	height: 1em;
-	width: *;
-	padding: 0;
-	padding-bottom: 2px;
-	background: none;
-	font-size: 14px;
-	border: none;
-}
-#ui-search button
-{
-	visibility: none;
-
-	padding: 0 9px;
-	height: *;
-	width: 18px;
-	background: none;
-	foreground-image: url(path:M469 819q194 0 331-137t138-332-138-331-331-138-331 138-138 331 138 332 331 137z m0-834q151 0 258 107t107 258-107 258-258 107-258-107-107-258 107-258 258-107z m36 365l139-137q12-13 5-29t-24-16q-11 0-19 7l-137 139-138-139q-7-7-18-7-17 0-24 16t5 29l139 137-139 138q-18 17 1 36t36 1l138-138 137 138q18 18 37-1t1-36z);
-	foreground-repeat: no-repeat;
-	foreground-size: 1.3em;
-	foreground-position: center;
-	fill: #284e6f;
-	background: white;
-	border: none;
-	border-radius: 0;
-}
-#ui-search button:hover
-{
-	background: #D8DEE3;
-}
-
-
 #ui-sz
 {
 	height: 3dip;
@@ -124,7 +67,6 @@ header #toolbar { visibility: none; }
 	border: 3dip solid rgb(32,32,32);
 	border-radius: 50%;
 }
-
 
 project
 {
