@@ -205,7 +205,6 @@
     <Content Include="res\lib_poptip\lib_poptip.css" />
     <Content Include="res\lib_poptip\unittest.html" />
     <Content Include="res\lib_settings\unittest.html" />
-    <Content Include="res\sidebarOSX.html" />
     <Content Include="res\unittestSVG.html" />
   </ItemGroup>
   <ItemGroup />

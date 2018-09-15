@@ -74,17 +74,36 @@ namespace IconDrop.Hosting
 			NSWindow wnd = (NSWindow) _sItem.ValueForKey(new NSString("window"));
 			//var f1 = NSApplication.SharedApplication.CurrentEvent.Window.Frame;
 			//var f2 = wnd.Frame;
-			var frm = wnd.Frame;
+
+			var screen = wnd.Screen;
+			if(screen == null)
+				screen = NSScreen.MainScreen;
+			
+			var scrfrm = screen.VisibleFrame;
+			int w = 670;
+			int h = (int)scrfrm.Height - 50;
+			int offx_arrow = 0;
 
 			var pos = new PInvokeUtils.POINT()
 			{
-				X = ((int)frm.Left - App.AppWnd.Size.cx / 2) + ((int)frm.Width / 2),
-				Y = (int)frm.Top - 1
+				X = ((int)wnd.Frame.Left - w / 2) + ((int)wnd.Frame.Width / 2),
+				Y = (int)wnd.Frame.Top - 1
 			};
+
+			if(pos.X + w > scrfrm.Width)
+			{
+				offx_arrow = (int)(pos.X + w - scrfrm.Width);
+				pos.X = (int)(scrfrm.Width - w);
+			}
 
 			NSApplication.SharedApplication.ActivateIgnoringOtherApps(true);
 			App.AppWnd._nsview.Window.OrderFrontRegardless();
-			App.AppWnd.CallFunction("View_ShowAnimate", new SciterValue(pos.X), new SciterValue(pos.Y));
+			App.AppWnd.CallFunction("View_ShowOSX",
+			                        new SciterValue(pos.X),
+			                        new SciterValue(pos.Y),
+			                        new SciterValue(w),
+			                       	new SciterValue(h),
+			                        new SciterValue(offx_arrow));
 		}
 
 		public static void HidePopup()

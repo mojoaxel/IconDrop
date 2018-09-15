@@ -29,23 +29,12 @@
 
 		Setup();
 
-		if(!Utils.InDBGView)
-		{
-			/*view.Host_IsUpdateAvailable(function(version) {
-				self#info-update.$(em).text = version
-				self#info-update.show();
-			});*/
-		}
-
-		if(Utils.IsWindows)
+		if(Utils.IsWindows && !Settings.ns_data.hint_closing)
 		{
 			self.closing = function() {
-				if(!Settings.ns_data.hint_closing)
-				{
-					Settings.ns_data.hint_closing = true;
-					Settings.StoreWork();
-					view.msgbox(#information, "HINT!\nClosing IconDrop window minimizes it to your tray \nas a 'drop' icon so you easily open it. To actually \nterminate the app, right-click the icon and choose 'Quit'.\n\n", Consts.APPNAME);
-				}
+				Settings.ns_data.hint_closing = true;
+				Settings.StoreWork();
+				view.msgbox(#information, "HINT!\nClosing Icon Drop window minimizes it to your tray \nas a 'drop' icon so you easily open it. To actually \nterminate the app, right-click the icon and choose 'Quit'.\n\n", Consts.APPNAME);
 				view.windowState = View.WINDOW_HIDDEN;
 				return false;
 			};
@@ -56,12 +45,31 @@
 			view.windowResizable = false;
 		}
 
-		function View_ShowAnimate(x, y)
+		function View_FocusIt()
+		{
+			var el_frm = $(frame:current);
+			var el_search = el_frm[0].$(#ui-search widget);
+			if(el_search)
+			{
+				el_search.state.focus = true;
+				el_search.doSelectAll();
+			}
+			else
+				view.focus = el_frm[0].$(body);
+
+			var el_popup = el_frm[0].$(:popup);
+			if(el_popup)
+				el_popup.closePopup();
+		}
+
+		function View_ShowOSX(x, y, w, h, offx_arrow)
 		{
 			y = view.box(#top);
-			view.move(x, y);
+			view.move(x, y, w, h);
 			view.windowState = View.WINDOW_SHOWN;
-			self#ui-search-txt.state.focus = true;
+			self#osx-arrow.style#margin-left = px(offx_arrow*2);
+			
+			View_FocusIt();
 		}
 	</script>
 
