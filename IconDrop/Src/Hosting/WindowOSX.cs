@@ -1,18 +1,18 @@
-﻿using System;
+﻿#if OSX
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using SciterSharp;
 using SciterSharp.Interop;
+using AppKit;
+using Foundation;
 
 namespace IconDrop.Hosting
 {
-#if OSX
-	using AppKit;
-	using Foundation;
-
 	class WindowDelegate : NSWindowDelegate
 	{
 		public override void DidResignKey(NSNotification notification)
@@ -31,22 +31,15 @@ namespace IconDrop.Hosting
 			WindowSidebar.ShowPopup();
 		}
 	}
-#endif
 
 	class WindowSidebar : SciterWindow
 	{
-#if OSX
-		private static NSStatusItem _sItem;
+		public static NSStatusItem _sItem;
+		public static EventDelegate _handler;
 
 		public WindowSidebar()
 		{
-			var frm = NSScreen.MainScreen.VisibleFrame;
-
-			PInvokeUtils.RECT rc = new PInvokeUtils.RECT()
-			{
-				right = 670,
-				bottom = (int) frm.Height - 50
-			};
+			PInvokeUtils.RECT rc = new PInvokeUtils.RECT();
 
 			var flags = SciterXDef.SCITER_CREATE_WINDOW_FLAGS.SW_ALPHA |
 				SciterXDef.SCITER_CREATE_WINDOW_FLAGS.SW_MAIN |
@@ -59,14 +52,15 @@ namespace IconDrop.Hosting
 			var deleg = new WindowDelegate();
 			wnd._nsview.Window.Delegate = deleg;
 			wnd._nsview.Window.Level = NSWindowLevel.Floating;
+			wnd._nsview.Window.StyleMask = wnd._nsview.Window.StyleMask & ~NSWindowStyle.Resizable;
 
 			// Create status bar item
-			_sItem = NSStatusBar.SystemStatusBar.CreateStatusItem(25);
-			_sItem.Image = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/drop.png"));
+			_sItem = NSStatusBar.SystemStatusBar.CreateStatusItem(26);
+			_sItem.Image = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/icon_menubar.png"));
+			//_sItem.AlternateImage = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/icon_menubarX2.png"));
 			_sItem.Image.Template = true;
 			_sItem.Action = new ObjCRuntime.Selector("OnIconClick");
 			_sItem.Target = deleg;
-			_sItem.HighlightMode = true;
 		}
 
 		public static void ShowPopup()
@@ -104,16 +98,30 @@ namespace IconDrop.Hosting
 			                        new SciterValue(w),
 			                       	new SciterValue(h),
 			                        new SciterValue(offx_arrow));
+
+			//CoreFoundation.DispatchQueue.MainQueue.DispatchAsync(() => {
+			//});
 		}
 
 		public static void HidePopup()
 		{
 			if(App.AppWnd != null)
-				App.AppWnd.Show(false);
+			{
+				NSApplication.SharedApplication.Hide(NSApplication.SharedApplication.CurrentEvent);
+				//App.AppWnd.Show(false);
+			}
 		}
 
-#else
+		public static void Toggle()
+		{
+			if(NSApplication.SharedApplication.Active)
+				HidePopup();
+			else
+				ShowPopup();
+		}
 
+		/*
+		For Windows..
 		public WindowSidebar()
 		{
 			var wnd = this;
@@ -124,14 +132,14 @@ namespace IconDrop.Hosting
 				SciterXDef.SCITER_CREATE_WINDOW_FLAGS.SW_ENABLE_DEBUG |
 				SciterXDef.SCITER_CREATE_WINDOW_FLAGS.SW_TOOL;
 			wnd.CreateMainWindow(100, 100, flags);
-			wnd.Icon = Properties.Resources.IconMain;
+			wnd.Icon = Properties.Resources.icon;
 			wnd.Title = Consts.AppName;
 
 			// HideTaskbarIcon
 			PInvoke.User32.SetWindowLong(_hwnd,
 				PInvoke.User32.WindowLongIndexFlags.GWL_EXSTYLE,
 				PInvoke.User32.SetWindowLongFlags.WS_EX_TOOLWINDOW | PInvoke.User32.SetWindowLongFlags.WS_EX_LAYERED);
-		}
-#endif
+		}*/
 	}
 }
+#endif
