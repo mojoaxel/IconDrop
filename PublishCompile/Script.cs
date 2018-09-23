@@ -56,7 +56,8 @@ partial class Script
 			SpawnProcess("msbuild", CWD + $"{APPNAME}/{APPNAME}OSX.csproj /t:Build /p:Configuration=Release");
 
 			string APP_DIR = CWD + $"{APPNAME}/bin/Release/IconDrop.app";
-			string APP_OUTPUTDIR = CWD + $"ReleaseInfo/Output/";
+			string APP_RI = CWD + $"ReleaseInfo/";
+			string APP_OUTPUTDIR = APP_RI + $"Output/";
 			string APP_LATEST = APP_OUTPUTDIR + $"{APPNAME}.app/";
 
 			if(Directory.Exists(APP_LATEST))
@@ -67,7 +68,7 @@ partial class Script
 			_upload_output = APP_OUTPUTDIR + "IconDrop.zip";
 			if(File.Exists(_upload_output))
 				File.Delete(_upload_output);
-			ZipFile.CreateFromDirectory(APP_LATEST, _upload_output);
+			ZipFile.CreateFromDirectory(APP_RI, _upload_output);
 
 			return APP_LATEST + "Contents/MacOS/IconDrop";
 		}
