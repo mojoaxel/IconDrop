@@ -4,6 +4,11 @@ BUILD_CONFIG=$1
 BUILD_PROJ_DIR=$2
 BUILD_TARGET_DIR=$3
 
+if [ -z "$1" ]; then
+    BUILD_CONFIG=Release
+    BUILD_PROJ_DIR=/Users/midiway/Documents/IconDrop/IconDrop
+    BUILD_TARGET_DIR=/Users/midiway/Documents/IconDrop/IconDrop/bin/Release
+fi
 
 CONTENTS_DIR=$BUILD_TARGET_DIR/IconDrop.app/Contents
 SHARED_DIR=$BUILD_TARGET_DIR/IconDrop.app/Contents/Shared
