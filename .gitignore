@@ -1,6 +1,7 @@
 /ReleaseInfo
 /GPUCache
 debug.log
+ArchiveResource.cs
 
 # Garbage
 .DS_Store
