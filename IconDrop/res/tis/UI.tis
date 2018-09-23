@@ -200,10 +200,17 @@ namespace UI
 	function SetupHome()
 	{
 		self#ion.onClick = ::Sciter.launch("https://designarsenal.co/#icondrop");
-		self#ion.$(icon).onClick = function() {
+		if(Settings.ns_data.da_dismiss)
+		{
 			self#ion.remove();
-			return true;
-		};
+		} else {
+			self#ion.$(icon).onClick = function() {
+				self#ion.remove();
+				Settings.ns_data.da_dismiss = true;
+				Settings.StoreWork();
+				return true;
+			};
+		}
 		
 		// Section 1: icon packs
 		if(!Utils.InDBGView)

@@ -161,13 +161,14 @@
     <None Include="scripts\preBuild.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\sciter-sdk\bin\64\sciter.dll">
+      <Link>sciter.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="HTML\index.html" />
     <Content Include="res\css\buttons.css" />
     <Content Include="res\css\fonts\fonts.css" />
     <Content Include="res\css\search.css" />
-    <Content Include="sciter.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="scripts\packfolder.exe" />
     <None Include="Resources\dropBW.png" />
     <Content Include="res\css\fontello\idrop-font.css" />

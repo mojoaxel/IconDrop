@@ -1,5 +1,4 @@
-﻿#define OSX
-#if OSX
+﻿#if OSX
 using System;
 using System.Collections.Generic;
 using System.IO;
