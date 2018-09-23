@@ -56,7 +56,7 @@ partial class Script
 			SpawnProcess("msbuild", CWD + $"{APPNAME}/{APPNAME}OSX.csproj /t:Build /p:Configuration=Release");
 
 			string APP_DIR = CWD + $"{APPNAME}/bin/Release/IconDrop.app";
-			string APP_OUTPUTDIR = CWD + $"../ReleaseInfo/Output/";
+			string APP_OUTPUTDIR = CWD + $"ReleaseInfo/Output/";
 			string APP_LATEST = APP_OUTPUTDIR + $"{APPNAME}.app/";
 
 			if(Directory.Exists(APP_LATEST))
