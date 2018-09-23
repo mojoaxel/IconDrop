@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/MISoftware/IconDrop/master/demo.gif)
 
-IconDrop is a **SVG icon-manager** desktop app for Windows and OSX.
+IconDrop is an open-source **SVG icon-manager** desktop app for Windows and OSX.
 
 Essentially it comes filled with many ready-to-use icons packs to use in **Photoshop**, **Illustrator** or **Sketch**, for example, by simply drag'n'droping it (you are actually dragging a SVG file).
 
