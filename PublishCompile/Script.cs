@@ -15,7 +15,7 @@ partial class Script
 	static void Main(string[] args)
 	{
 		if(Environment.OSVersion.Platform == PlatformID.Win32NT)
-			CWD = Path.GetFullPath(Environment.CurrentDirectory + "/../../../ReleaseInfo/");
+			CWD = Path.GetFullPath(Environment.CurrentDirectory + "/../../../");
 		else
 			CWD = $"/Users/midiway/Documents/{APPNAME}/";
 
