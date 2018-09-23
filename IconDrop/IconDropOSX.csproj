@@ -74,7 +74,7 @@
         </Command>
       </CustomCommands>
     </CustomCommands>
-    <CodeSigningKey>Developer ID Application</CodeSigningKey>
+    <CodeSigningKey>Developer ID Application: Ramon Mendes (58839ES96Q)</CodeSigningKey>
     <PackageSigningKey>Developer ID Installer</PackageSigningKey>
     <AOTMode>None</AOTMode>
   </PropertyGroup>
