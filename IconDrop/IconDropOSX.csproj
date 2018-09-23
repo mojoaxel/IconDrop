@@ -140,7 +140,7 @@
     <None Include="res\tis\icon_info.tis" />
     <None Include="res\tis\icon_store.tis" />
     <None Include="res\tis\keyboard.tis" />
-    <None Include="scripts\packOSX.sh" />
+    <None Include="scripts\preBuildOSX.sh" />
     <None Include="scripts\packWindows.bat" />
     <None Include="scripts\packfolder" />
     <None Include="scripts\packfolder.exe" />
