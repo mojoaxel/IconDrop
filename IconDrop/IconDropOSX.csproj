@@ -34,6 +34,10 @@
           <type>AfterBuild</type>
           <command>cp -r ${ProjectDir}/Shared ${TargetDir}/IconDrop.app/Contents</command>
         </Command>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>sh scripts/packOSX.sh</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
     <AOTMode>None</AOTMode>
@@ -136,6 +140,11 @@
     <None Include="res\tis\icon_info.tis" />
     <None Include="res\tis\icon_store.tis" />
     <None Include="res\tis\keyboard.tis" />
+    <None Include="scripts\packOSX.sh" />
+    <None Include="scripts\packWindows.bat" />
+    <None Include="scripts\packfolder" />
+    <None Include="scripts\packfolder.exe" />
+    <None Include="scripts\preBuild.bat" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveResource.cs" />
