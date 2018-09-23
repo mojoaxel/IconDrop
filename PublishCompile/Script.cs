@@ -52,7 +52,7 @@ partial class Script
 		Console.WriteLine("### BUILD ###");
 		if(Environment.OSVersion.Platform == PlatformID.Unix)
 		{
-			SpawnProcess("sh", CWD + $"{APPNAME}/scripts/packOSX.sh");
+			//SpawnProcess("sh", CWD + $"{APPNAME}/scripts/packOSX.sh");
 			SpawnProcess("msbuild", CWD + $"{APPNAME}/{APPNAME}OSX.csproj /t:Build /p:Configuration=Release");
 
 			string APP_DIR = CWD + $"{APPNAME}/bin/Release/IconDrop.app";
