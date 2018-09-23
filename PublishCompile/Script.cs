@@ -67,7 +67,7 @@ partial class Script
 			_upload_output = APP_OUTPUTDIR + "IconDrop.zip";
 			if(File.Exists(_upload_output))
 				File.Delete(_upload_output);
-			ZipFile.CreateFromDirectory(APP_OUTPUTDIR, _upload_output);
+			ZipFile.CreateFromDirectory(APP_DIR, _upload_output);
 
 			return APP_LATEST + "Contents/MacOS/IconDrop";
 		}
