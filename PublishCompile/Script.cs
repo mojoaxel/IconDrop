@@ -52,24 +52,24 @@ partial class Script
 		Console.WriteLine("### BUILD ###");
 		if(Environment.OSVersion.Platform == PlatformID.Unix)
 		{
-			string APPAPP = CWD + $"{APPNAME}/bin/Release/IconDrop.app";
-			string APPZIPPARENT = CWD + $"{APPNAME}/Latest/Output/";
-			string APPLATEST = APPZIPPARENT + $"{APPNAME}.app/";
-
 			SpawnProcess("sh", CWD + $"{APPNAME}/scripts/packOSX.sh");
 			SpawnProcess("msbuild", CWD + $"{APPNAME}/{APPNAME}OSX.csproj /t:Build /p:Configuration=Release");
 
-			if(Directory.Exists(APPLATEST))
-				Directory.Delete(APPLATEST, true);
-			Directory.CreateDirectory(APPZIPPARENT);
-			Directory.Move(APPAPP, APPLATEST);
+			string APP_DIR = CWD + $"{APPNAME}/bin/Release/IconDrop.app";
+			string APP_OUTPUTDIR = CWD + $"../ReleaseInfo/Output/";
+			string APP_LATEST = APP_OUTPUTDIR + $"{APPNAME}.app/";
 
-			_upload_output = CWD + "ReleaseInfo/Latest/IconDrop.zip";
+			if(Directory.Exists(APP_LATEST))
+				Directory.Delete(APP_LATEST, true);
+			Directory.CreateDirectory(APP_OUTPUTDIR);
+			Directory.Move(APP_DIR, APP_LATEST);
+
+			_upload_output = APP_OUTPUTDIR + "IconDrop.zip";
 			if(File.Exists(_upload_output))
 				File.Delete(_upload_output);
-			ZipFile.CreateFromDirectory(APPZIPPARENT, _upload_output);
+			ZipFile.CreateFromDirectory(APP_OUTPUTDIR, _upload_output);
 
-			return APPLATEST + "Contents/MacOS/IconDrop";
+			return APP_LATEST + "Contents/MacOS/IconDrop";
 		}
 		else
 		{
