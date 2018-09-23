@@ -112,7 +112,6 @@
     <Compile Include="Src\Data\Library.cs" />
     <Compile Include="Src\Data\Joiner.cs" />
     <Compile Include="Src\Hosting\DnDOSX.cs" />
-    <Compile Include="Src\Hosting\DnDWindowsFUCK.cs" />
     <Compile Include="Src\Hosting\Host.cs" />
     <Compile Include="Src\Hosting\IconsSource.cs" />
     <Compile Include="Src\Hosting\SKIconCode.cs" />

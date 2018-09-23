@@ -1,4 +1,5 @@
-﻿#if OSX
+﻿#define OSX
+#if OSX
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,6 @@ namespace IconDrop.Hosting
 	class WindowSidebar : SciterWindow
 	{
 		public static NSStatusItem _sItem;
-		public static EventDelegate _handler;
 
 		public WindowSidebar()
 		{
@@ -56,7 +56,7 @@ namespace IconDrop.Hosting
 
 			// Create status bar item
 			_sItem = NSStatusBar.SystemStatusBar.CreateStatusItem(26);
-			_sItem.Image = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/icon_menubar.png"));
+			_sItem.Image = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/drop.png"));
 			//_sItem.AlternateImage = NSImage.FromStream(File.OpenRead(NSBundle.MainBundle.ResourcePath + @"/icon_menubarX2.png"));
 			_sItem.Image.Template = true;
 			_sItem.Action = new ObjCRuntime.Selector("OnIconClick");

@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>__MACOS__;DEBUG;__UNIFIED__;OSX;APP_ID</DefineConstants>
+    <DefineConstants>__MACOS__;DEBUG;__UNIFIED__;OSX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <EnableCodeSigning>false</EnableCodeSigning>
@@ -37,6 +37,7 @@
       </CustomCommands>
     </CustomCommands>
     <AOTMode>None</AOTMode>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DebugType></DebugType>
@@ -91,10 +92,8 @@
     <None Include="Entitlements.plist" />
     <None Include="App.config" />
     <None Include="res\index.html" />
-    <None Include="res\sidebarOSX.html" />
     <None Include="res\spriter.html" />
     <None Include="res\unittest.html" />
-    <None Include="res\unittest.tis" />
     <None Include="res\unittestSVG.html" />
     <None Include="res\css\global.css" />
     <None Include="res\css\home.css" />
@@ -154,17 +153,15 @@
     <Compile Include="Src\Data\Library.cs" />
     <Compile Include="Src\Data\Store.cs" />
     <Compile Include="Src\Hosting\DnDOSX.cs" />
-    <Compile Include="Src\Hosting\DnDWindowsFUCK.cs" />
     <Compile Include="Src\Hosting\Host.cs" />
     <Compile Include="Src\Hosting\IconsSource.cs" />
     <Compile Include="Src\Hosting\SKIconCode.cs" />
-    <Compile Include="Src\Hosting\Window.cs" />
-    <Compile Include="Src\Hosting\WindowSidebar.cs" />
+    <Compile Include="Src\Hosting\WindowOSX.cs" />
     <Compile Include="Src\Hosting\WindowUnittest.cs" />
+    <Compile Include="Src\Hosting\WindowWL.cs" />
     <Compile Include="Src\Native\SingleInstance.cs" />
     <Compile Include="Src\Svg\SvgParser.cs" />
     <Compile Include="Src\Svg\SvgSpriteXML.cs" />
-    <Compile Include="Src\Svg\SvgToSkia.cs" />
     <Compile Include="Src\Svg\SvgXML.cs" />
   </ItemGroup>
   <ItemGroup>
