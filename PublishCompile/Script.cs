@@ -65,7 +65,7 @@ partial class Script
 			Directory.CreateDirectory(APP_OUTPUTDIR);
 			Directory.Move(APP_DIR, APP_LATEST);
 
-			_upload_output = APP_RI + "IconDrop.zip";
+			_upload_output = APP_RI + "IconDropOSX.zip";
 			if(File.Exists(_upload_output))
 				File.Delete(_upload_output);
 			ZipFile.CreateFromDirectory(APP_OUTPUTDIR, _upload_output);
