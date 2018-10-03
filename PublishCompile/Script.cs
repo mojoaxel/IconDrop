@@ -79,7 +79,7 @@ partial class Script
 			SpawnProcess(@"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe", proj + $" /t:{how} /p:Configuration={CONFIG} /p:Platform=x64");
 
 			#region Pack
-			var WORK_DIR = $"{CWD}Latest\\";
+			var WORK_DIR = $"{CWD}\\ReleaseInfo\\Latest\\";
 
 			// Delete and create these dirs
 			if(Directory.Exists(WORK_DIR))
