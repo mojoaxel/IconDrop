@@ -79,29 +79,30 @@ partial class Script
 			SpawnProcess(@"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe", proj + $" /t:{how} /p:Configuration={CONFIG} /p:Platform=x64");
 
 			#region Pack
-			var WORK_DIR = $"{CWD}\\ReleaseInfo\\Latest\\";
+			var DIR_RI = $"{CWD}\\ReleaseInfo\\";
+			var DIR_LATEST = $"{DIR_RI}\\Latest\\";
 
 			// Delete and create these dirs
-			if(Directory.Exists(WORK_DIR))
-				Directory.Delete(WORK_DIR, true);
-			Directory.CreateDirectory(WORK_DIR);
+			if(Directory.Exists(DIR_LATEST))
+				Directory.Delete(DIR_LATEST, true);
+			Directory.CreateDirectory(DIR_LATEST);
 
 			// Copy \bin\Release to WORK_DIR
-			string BIN_DIR = Path.GetFullPath(CWD + APPNAME + "\\bin\\Release");
+			string DIR_BIN = Path.GetFullPath(CWD + APPNAME + "\\bin\\Release");
 
-			var files1 = Directory.EnumerateFiles(BIN_DIR, "*.exe", SearchOption.AllDirectories);
-			var files2 = Directory.EnumerateFiles(BIN_DIR, "*.dll", SearchOption.AllDirectories);
+			var files1 = Directory.EnumerateFiles(DIR_BIN, "*.exe", SearchOption.AllDirectories);
+			var files2 = Directory.EnumerateFiles(DIR_BIN, "*.dll", SearchOption.AllDirectories);
 			foreach(var file in files1.Union(files2))
 			{
-				string subpath = file.Substring(BIN_DIR.Length);
-				string outpath = WORK_DIR + subpath;
+				string subpath = file.Substring(DIR_BIN.Length);
+				string outpath = DIR_LATEST + subpath;
 				Directory.CreateDirectory(Path.GetDirectoryName(outpath));
 				File.Copy(file, outpath);
 			}
 
 			// Copy \Shared to WORK_DIR
 			string SHARED_DIR = Path.GetFullPath(CWD + "..\\" + APPNAME + "\\Shared");
-			DirectoryCopy(SHARED_DIR, WORK_DIR + "\\Shared", true);
+			DirectoryCopy(SHARED_DIR, DIR_LATEST + "\\Shared", true);
 
 			// Generate installer
 			//SpawnProcess("iscc", "installer.iss");
@@ -110,9 +111,9 @@ partial class Script
 			// Zip WORK_DIR
 			_upload_output = CWD + "IconDropWIN.zip";
 			File.Delete(_upload_output);
-			ZipFile.CreateFromDirectory(WORK_DIR, _upload_output);
+			ZipFile.CreateFromDirectory(DIR_LATEST, _upload_output);
 
-			return WORK_DIR + APPNAME_EXE;
+			return DIR_LATEST + APPNAME_EXE;
 		}
 	}
 }
