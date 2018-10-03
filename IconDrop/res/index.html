@@ -29,12 +29,14 @@
 
 		Setup();
 
-		if(Utils.IsWindows && !Settings.ns_data.hint_closing)
+		if(Utils.IsWindows)
 		{
 			self.closing = function() {
-				Settings.ns_data.hint_closing = true;
-				Settings.StoreWork();
-				view.msgbox(#information, "HINT!\nClosing Icon Drop window minimizes it to your tray \nas a 'drop' icon so you easily open it. To actually \nterminate the app, right-click the icon and choose 'Quit'.\n\n", Consts.APPNAME);
+				if(!Settings.ns_data.hint_closing) {
+					Settings.ns_data.hint_closing = true;
+					Settings.StoreWork();
+					view.msgbox(#information, "HINT!\nClosing Icon Drop window minimizes it to your tray \nas a 'drop' icon so you easily open it. To actually \nterminate the app, right-click the icon and choose 'Quit'.\n\n", Consts.APPNAME);
+				}
 				view.windowState = View.WINDOW_HIDDEN;
 				return false;
 			};

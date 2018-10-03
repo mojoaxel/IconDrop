@@ -59,6 +59,7 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\IconMain.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -138,7 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.IconDropWindows.config" />
     <None Include="Resources\IconMain.ico" />
     <None Include="res\css\fontello\idrop.ttf" />
@@ -156,9 +159,9 @@
     <None Include="res\tis\UI.tis" />
     <None Include="res\tis\icon_behavior.tis" />
     <None Include="scripts\packfolder" />
-    <None Include="scripts\packOSX.sh" />
     <None Include="scripts\packWindows.bat" />
     <None Include="scripts\preBuild.bat" />
+    <None Include="scripts\preBuildOSX.sh" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\sciter-sdk\bin\64\sciter.dll">
