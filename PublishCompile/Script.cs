@@ -101,15 +101,15 @@ partial class Script
 			}
 
 			// Copy \Shared to WORK_DIR
-			string SHARED_DIR = Path.GetFullPath(CWD + APPNAME + "\\Shared");
-			DirectoryCopy(SHARED_DIR, DIR_LATEST + "\\Shared", true);
+			string DIR_SHARED = Path.GetFullPath(CWD + APPNAME + "\\Shared");
+			DirectoryCopy(DIR_SHARED, DIR_LATEST + "\\Shared", true);
 
 			// Generate installer
 			//SpawnProcess("iscc", "installer.iss");
 			#endregion
 
 			// Zip WORK_DIR
-			_upload_output = CWD + "IconDropWIN.zip";
+			_upload_output = DIR_RI + "IconDropWIN.zip";
 			File.Delete(_upload_output);
 			ZipFile.CreateFromDirectory(DIR_LATEST, _upload_output);
 
