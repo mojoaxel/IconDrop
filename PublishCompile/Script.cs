@@ -76,7 +76,7 @@ partial class Script
 		{
 			string how = "Clean,Build";
 			string proj = Path.GetFullPath(CWD + $"..\\{APPNAME}\\{APPNAME}Windows.csproj");
-			SpawnProcess(@"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe", proj + " /t:{how} /p:Configuration={CONFIG} /p:Platform=x64");
+			SpawnProcess(@"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe", proj + $" /t:{how} /p:Configuration={CONFIG} /p:Platform=x64");
 
 			#region Pack
 			var WORK_DIR = $"{CWD}Latest\\";
