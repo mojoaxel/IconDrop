@@ -87,7 +87,7 @@ partial class Script
 			Directory.CreateDirectory(WORK_DIR);
 
 			// Copy \bin\Release to WORK_DIR
-			string BIN_DIR = Path.GetFullPath(CWD + "..\\" + APPNAME + "\\bin\\Release");
+			string BIN_DIR = Path.GetFullPath(CWD + APPNAME + "\\bin\\Release");
 
 			var files1 = Directory.EnumerateFiles(BIN_DIR, "*.exe", SearchOption.AllDirectories);
 			var files2 = Directory.EnumerateFiles(BIN_DIR, "*.dll", SearchOption.AllDirectories);
