@@ -88,7 +88,7 @@ partial class Script
 			Directory.CreateDirectory(DIR_LATEST);
 
 			// Copy \bin\Release to WORK_DIR
-			string DIR_BIN = Path.GetFullPath(CWD + APPNAME + "\\bin\\Release");
+			string DIR_BIN = Path.GetFullPath(CWD + APPNAME + "\\bin\\Release\\");
 
 			var files1 = Directory.EnumerateFiles(DIR_BIN, "*.exe", SearchOption.AllDirectories);
 			var files2 = Directory.EnumerateFiles(DIR_BIN, "*.dll", SearchOption.AllDirectories);
@@ -101,7 +101,7 @@ partial class Script
 			}
 
 			// Copy \Shared to WORK_DIR
-			string SHARED_DIR = Path.GetFullPath(CWD + "..\\" + APPNAME + "\\Shared");
+			string SHARED_DIR = Path.GetFullPath(CWD + APPNAME + "\\Shared");
 			DirectoryCopy(SHARED_DIR, DIR_LATEST + "\\Shared", true);
 
 			// Generate installer
