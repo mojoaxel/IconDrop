@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir -p /usr/lib/sciter
-wget https://github.com/c-smile/sciter-sdk/raw/master/bin.gtk/libsciter-gtk-64.so -O /usr/lib/sciter/libsciter-gtk-64.so
+wget https://github.com/c-smile/sciter-sdk/raw/master/bin.gtk/x64/libsciter-gtk.so -O /usr/lib/sciter/libsciter-gtk.so
 
 touch /etc/ld.so.conf.d/sciter.conf
 bash -c 'echo "/usr/lib/sciter" > /etc/ld.so.conf.d/sciter.conf'
